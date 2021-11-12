@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Gravitational accelaration:</strong>
+  <%= @planet.gravitational_accelaration %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @planet.name %>
+</p>
+
+<p>
+  <strong>Has fuel:</strong>
+  <%= @planet.has_fuel %>
+</p>
+
+<%= link_to 'Edit', edit_planet_path(@planet) %> |
+<%= link_to 'Back', planets_path %>
