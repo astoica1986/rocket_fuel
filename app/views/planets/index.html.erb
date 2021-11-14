@@ -29,18 +29,30 @@
 <%= link_to 'New Planet', new_planet_path %>
 
 <h1>Calculate fuel needed to travel between planets</h1>
-<h3>Only one planet can have a fuel supply(by default that it is Earth).</h3>
+<h3>Only one planet can have a fuel supply(by default that it is Earth but this can any other planet can take this attribute).</h3>
 <h3>The launch and land from and to the planet that has fuel will always be added to the flight plan and to the final fuel consumption.</h3>
+<h3>The parameterized flight plan is an array of tuples where the first element of the tuple is a flight stage(launch or land) and the second is a planet's gravitational accelaration</h3>
 <br>
 <div>Current flight plan: <%= @flight_plan %></div>
 <div>Current parameterized flight plan: <%= @parameterized_flight_plan %></div>
 
 <form id="add_planet_to_flight_plan", method="get", action="/planets">
-  <select name="planets_flight_ids" id="planet_selection" form="add_planet_to_flight_plan">
-    <% planets_with_no_fuel = @planets.select { |p| !p.has_fuel } %>
-    <% planets_with_no_fuel.each do |planet| %>
-      <option value="<%=@planets_flight_ids + [planet.id] %>"><%= planet.name%></option>
-    <% end %>
-  </select>
-  <input type="submit">
+  <div class="field">
+    <label for="planets_flight_ids">Planet</label>
+    <select name="planets_flight_ids" id="planet_selection" form="add_planet_to_flight_plan">
+      <% planets_with_no_fuel = @planets.select { |p| !p.has_fuel } %>
+      <% planets_with_no_fuel.each do |planet| %>
+        <option value="<%=@planets_flight_ids + [planet.id] %>"><%= planet.name%></option>
+      <% end %>
+    </select>
+  </div>
+  <div class="field">
+    <label for="mass">Rocket cargo mass</label>
+    <input name="mass" type="number" min="0" value="<%= @mass %>">
+  </div>
+
+  <div class="actions"><input type="submit" value="Add planet to flight plan or update rocket mass"></div>
 </form>
+<%= link_to 'Reset flight plan', root_path %>
+<div>Current total fuel consumption: <%= @fuel_consumption %></div>
+

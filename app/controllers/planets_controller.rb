@@ -4,10 +4,11 @@ class PlanetsController < ApplicationController
   # GET /planets or /planets.json
   def index
     @planets = Planet.all
-    #byebug
     @planets_flight_ids = JSON.parse(params[:planets_flight_ids] || '[]')
     @flight_plan = Planet.flight_plan(@planets_flight_ids)
     @parameterized_flight_plan = Planet.parameterize_flight_plan(@planets_flight_ids)
+    @mass = params[:mass].to_i || 0
+    @fuel_consumption = calculate_fuel_consumption
   end
 
   # GET /planets/1 or /planets/1.json
@@ -70,5 +71,11 @@ class PlanetsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def planet_params
     params.require(:planet).permit(:gravitational_accelaration, :name, :has_fuel)
+  end
+
+  def calculate_fuel_consumption
+    return 0 if @mass <= 0 || @flight_plan.blank?
+
+    FuelConsumptionService.call(@mass, @parameterized_flight_plan)
   end
 end
