@@ -45,13 +45,18 @@
         <option value="<%=@planets_flight_ids + [planet.id] %>"><%= planet.name%></option>
       <% end %>
     </select>
+    <input name="mass" type="hidden"  value="<%= @mass %>">
   </div>
+
+  <div class="actions"><input type="submit" value="Add planet to flight plan"></div>
+</form>
+<form id="change_mass", method="get", action="/planets">
   <div class="field">
     <label for="mass">Rocket cargo mass</label>
     <input name="mass" type="number" min="0" value="<%= @mass %>">
+    <input name="planets_flight_ids" type="hidden"  value="<%= @planets_flight_ids %>">
   </div>
-
-  <div class="actions"><input type="submit" value="Add planet to flight plan or update rocket mass"></div>
+  <div class="actions"><input type="submit" value="Change mass"></div>
 </form>
 <%= link_to 'Reset flight plan', root_path %>
 <div>Current total fuel consumption: <%= @fuel_consumption %></div>
