@@ -34,7 +34,7 @@
 <h3>The parameterized flight plan is an array of tuples where the first element of the tuple is a flight stage(launch or land) and the second is a planet's gravitational accelaration</h3>
 <br>
 <div>Current flight plan: <%= @flight_plan %></div>
-<div>Current parameterized flight plan: <%= @parameterized_flight_plan %></div>
+<div>Current parameterized flight plan: <%= @parameterized_flight_plan.to_s %></div>
 
 <form id="add_planet_to_flight_plan", method="get", action="/planets">
   <div class="field">

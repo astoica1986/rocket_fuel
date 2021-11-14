@@ -44,7 +44,6 @@ class FuelConsumptionService
 
     flight_stage, gravity = current_flight_plan.pop
     multiplier_factor, rest_factor = fuel_calculation_factors[flight_stage]
-    #byebug
     new_fuel_mass = calculate_total_new_fuel(fuel_mass, gravity, multiplier_factor, rest_factor)
     calculate_total_fuel(fuel_mass + new_fuel_mass, current_flight_plan)
   end

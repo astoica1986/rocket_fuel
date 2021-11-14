@@ -76,6 +76,6 @@ class PlanetsController < ApplicationController
   def calculate_fuel_consumption
     return 0 if @mass <= 0 || @flight_plan.blank?
 
-    FuelConsumptionService.call(@mass, @parameterized_flight_plan)
+    FuelConsumptionService.call(@mass, @parameterized_flight_plan.dup)
   end
 end
