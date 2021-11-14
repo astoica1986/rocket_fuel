@@ -1,9 +1,13 @@
 class PlanetsController < ApplicationController
-  before_action :set_planet, only: %i[ show edit update destroy ]
+  before_action :set_planet, only: %i[ show edit update destroy]
 
   # GET /planets or /planets.json
   def index
     @planets = Planet.all
+    #byebug
+    @planets_flight_ids = JSON.parse(params[:planets_flight_ids] || '[]')
+    @flight_plan = Planet.flight_plan(@planets_flight_ids)
+    @parameterized_flight_plan = Planet.parameterize_flight_plan(@planets_flight_ids)
   end
 
   # GET /planets/1 or /planets/1.json
@@ -25,7 +29,7 @@ class PlanetsController < ApplicationController
 
     respond_to do |format|
       if @planet.save
-        format.html { redirect_to @planet, notice: "Planet was successfully created." }
+        format.html { redirect_to @planet, notice: 'Planet was successfully created.' }
         format.json { render :show, status: :created, location: @planet }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +42,7 @@ class PlanetsController < ApplicationController
   def update
     respond_to do |format|
       if @planet.update(planet_params)
-        format.html { redirect_to @planet, notice: "Planet was successfully updated." }
+        format.html { redirect_to @planet, notice: 'Planet was successfully updated.' }
         format.json { render :show, status: :ok, location: @planet }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -51,19 +55,20 @@ class PlanetsController < ApplicationController
   def destroy
     @planet.destroy
     respond_to do |format|
-      format.html { redirect_to planets_url, notice: "Planet was successfully destroyed." }
+      format.html { redirect_to planets_url, notice: 'Planet was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_planet
-      @planet = Planet.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def planet_params
-      params.require(:planet).permit(:gravitational_accelaration, :name, :has_fuel)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_planet
+    @planet = Planet.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def planet_params
+    params.require(:planet).permit(:gravitational_accelaration, :name, :has_fuel)
+  end
 end

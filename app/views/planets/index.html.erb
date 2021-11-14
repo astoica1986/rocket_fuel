@@ -26,6 +26,21 @@
   </tbody>
 </table>
 
-<br>
-
 <%= link_to 'New Planet', new_planet_path %>
+
+<h1>Calculate fuel needed to travel between planets</h1>
+<h3>Only one planet can have a fuel supply(by default that it is Earth).</h3>
+<h3>The launch and land from and to the planet that has fuel will always be added to the flight plan and to the final fuel consumption.</h3>
+<br>
+<div>Current flight plan: <%= @flight_plan %></div>
+<div>Current parameterized flight plan: <%= @parameterized_flight_plan %></div>
+
+<form id="add_planet_to_flight_plan", method="get", action="/planets">
+  <select name="planets_flight_ids" id="planet_selection" form="add_planet_to_flight_plan">
+    <% planets_with_no_fuel = @planets.select { |p| !p.has_fuel } %>
+    <% planets_with_no_fuel.each do |planet| %>
+      <option value="<%=@planets_flight_ids + [planet.id] %>"><%= planet.name%></option>
+    <% end %>
+  </select>
+  <input type="submit">
+</form>
