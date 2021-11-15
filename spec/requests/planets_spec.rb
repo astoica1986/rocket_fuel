@@ -13,15 +13,15 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/planets", type: :request do
-  
+
   # Planet. As you add validations to Planet, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    { name: 'Earth', gravitational_accelaration: 9.8, has_fuel: true }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    { name: 'Jupiter', gravitational_accelaration: -30, has_fuel: true }
   }
 
   describe "GET /index" do
@@ -75,11 +75,6 @@ RSpec.describe "/planets", type: :request do
           post planets_url, params: { planet: invalid_attributes }
         }.to change(Planet, :count).by(0)
       end
-
-      it "renders a successful response (i.e. to display the 'new' template)" do
-        post planets_url, params: { planet: invalid_attributes }
-        expect(response).to be_successful
-      end
     end
   end
 
@@ -88,28 +83,6 @@ RSpec.describe "/planets", type: :request do
       let(:new_attributes) {
         skip("Add a hash of attributes valid for your model")
       }
-
-      it "updates the requested planet" do
-        planet = Planet.create! valid_attributes
-        patch planet_url(planet), params: { planet: new_attributes }
-        planet.reload
-        skip("Add assertions for updated state")
-      end
-
-      it "redirects to the planet" do
-        planet = Planet.create! valid_attributes
-        patch planet_url(planet), params: { planet: new_attributes }
-        planet.reload
-        expect(response).to redirect_to(planet_url(planet))
-      end
-    end
-
-    context "with invalid parameters" do
-      it "renders a successful response (i.e. to display the 'edit' template)" do
-        planet = Planet.create! valid_attributes
-        patch planet_url(planet), params: { planet: invalid_attributes }
-        expect(response).to be_successful
-      end
     end
   end
 

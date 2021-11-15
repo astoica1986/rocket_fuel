@@ -1,7 +1,11 @@
-require_relative "boot"
 
+require_relative "boot"
 require "rails/all"
 
+RubyVM::InstructionSequence.compile_option = {
+  tailcall_optimization: true,
+  trace_instruction: false
+}
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
