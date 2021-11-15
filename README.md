@@ -21,3 +21,5 @@ which hopefully work with tail call optimization
 - I've also added a very simple (and ugly) UI for testing and demo purposes; this also allows you to add
 an unlimited number of possible planets and to change which planet has the capability to fuel a rocket
 (maybe Earth will be destroyed by a calamity and humanity will have to move!)
+- You can also test the project on https://thawing-caverns-61623.herokuapp.com/ (Heroku)
+- Thank you Elixirator for "reigniting" my interest in physics and astronomy
